@@ -661,9 +661,9 @@ function TerminalDrawer({ isOpen, onClose, themeKey, setThemeKey, content }: Ter
       case 'contact':
         output.push(
           'Contact Details:',
-          '  Email    - samyak.jain@example.com',
+          '  Email    - samyakjain7002@gmail.com',
           '  LinkedIn - linkedin.com/in/samyak-jain-173756374/',
-          '  GitHub   - github.com'
+          '  GitHub   - github.com/Samyakj-07'
         );
         break;
       case 'theme':
@@ -1766,7 +1766,7 @@ function Final() {
             <div className="flex flex-col gap-3 font-mono text-[10px] text-slate-500 border-t border-white/[0.05] pt-6">
               <div className="flex items-center gap-2">
                 <span className="text-accent-primary">EMAIL:</span>
-                <a href="mailto:samyak.jain@example.com" className="hover:text-white transition-colors">samyak.jain@example.com</a>
+                <a href="mailto:samyakjain7002@gmail.com" className="hover:text-white transition-colors">samyakjain7002@gmail.com</a>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-accent-primary">LOC:</span>
@@ -1783,7 +1783,7 @@ function Final() {
                 <Linkedin size={16} />
               </a>
               <a 
-                href="https://github.com" 
+                href="https://github.com/Samyakj-07" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-3 border border-white/[0.05] rounded-xl bg-slate-950/20 text-slate-400 hover:text-white hover:border-accent-primary/30 hover:shadow-[0_0_15px_rgba(var(--accent-primary),0.1)] transition-all"

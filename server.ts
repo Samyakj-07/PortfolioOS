@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
+import nodemailer from 'nodemailer';
 
 // Load environment variables
 dotenv.config();
@@ -145,6 +146,15 @@ if (mongoUri && mongoUri.trim() !== '') {
   initJsonDb();
 }
 
+// Email Transporter setup (Optional)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
 // ==========================================
 // API Endpoints
 // ==========================================
@@ -272,6 +282,27 @@ app.post('/api/inquiries', async (req: Request, res: Response): Promise<void> =>
 
       fs.writeFileSync(DB_FILE, JSON.stringify(inquiries, null, 2), 'utf-8');
       console.log('Saved inquiry to local JSON database:', newInquiry.email);
+    }
+
+    // Send email notification if configured
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      try {
+        await transporter.sendMail({
+          from: `"Portfolio Alerts" <${process.env.EMAIL_USER}>`,
+          to: process.env.EMAIL_USER, // Send to yourself
+          subject: `New Inquiry from ${newInquiry.name}`,
+          text: `You have a new inquiry!\n\nName: ${newInquiry.name}\nEmail: ${newInquiry.email}\nProject Type: ${newInquiry.projectType}\nMessage:\n${newInquiry.message}`,
+          html: `<h3>New Inquiry Received</h3>
+                 <p><strong>Name:</strong> ${newInquiry.name}</p>
+                 <p><strong>Email:</strong> ${newInquiry.email}</p>
+                 <p><strong>Project Type:</strong> ${newInquiry.projectType}</p>
+                 <p><strong>Message:</strong></p>
+                 <p>${newInquiry.message.replace(/\n/g, '<br>')}</p>`
+        });
+        console.log('Email notification sent for inquiry:', newInquiry.email);
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+      }
     }
 
     res.status(201).json({ success: true, message: 'Inquiry successfully submitted!' });

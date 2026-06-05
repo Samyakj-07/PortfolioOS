@@ -1710,7 +1710,7 @@ function Final() {
     setSubmitStatus('loading');
     
     try {
-      const response = await fetch('http://127.0.0.1:5001/api/inquiries', {
+      const response = await fetch('http://localhost:5001/api/inquiries', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -335,6 +335,6 @@ app.get('/api/inquiries', authMiddleware, async (_req: Request, res: Response) =
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`[SERVER ACTIVE] Running on http://127.0.0.1:${PORT}`);
+app.listen(Number(PORT), '0.0.0.0', () => {
+  console.log(`[SERVER ACTIVE] Running on http://localhost:${PORT}`);
 });
